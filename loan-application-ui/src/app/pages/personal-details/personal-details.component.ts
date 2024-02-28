@@ -6,6 +6,8 @@ import { HelpDialogComponent } from '../../components/help-dialog/help-dialog.co
 @Component({
   selector: 'personal-details',
   templateUrl: './personal-details.component.html',
+  styleUrls: ['./personal-details.component.scss'] 
+
 })
 export class PersonalDetailsComponent implements OnInit {
   @Input() formGroup!: FormGroup;
@@ -49,17 +51,12 @@ export class PersonalDetailsComponent implements OnInit {
     return null;
   }
 
-  openHelp(field: string) {
-    const helpTexts = {
-      title: 'Help text for Title',
-      firstName: 'Help text for First Name',
-      // Add more as needed
-    };
-  
+  openDialog() {
     this.dialog.open(HelpDialogComponent, {
       width: '250px',
-      data: { helpText:  'No help available' }
+      data: {
+        helpText: 'Some Helptext',
+      },
     });
   }
-
 }

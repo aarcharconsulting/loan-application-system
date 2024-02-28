@@ -1,0 +1,36 @@
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: auto;
+  
+    .form-field-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%; // Full width to start with (for mobile)
+  
+      @media (min-width: 600px) { // Adjust this breakpoint as needed
+        width: 50%; // Half width for desktop
+      }
+  
+      &.full-width {
+        width: 100%; // Ensure some elements can span full width if needed
+      }
+    }
+  
+    .label-column {
+      text-align: right;
+      padding-right: 20px; // Space between label and field
+  
+      @media (max-width: 599px) {
+        text-align: left;
+        padding-right: 0;
+      }
+    }
+  
+    .input-column {
+      flex-grow: 1;
+    }
+  }
+  

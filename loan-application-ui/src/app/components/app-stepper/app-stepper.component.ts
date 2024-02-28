@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-stepper.component',
   templateUrl: './app-stepper.component.html',
+  styleUrl:'./app-stepper.component.scss'
 })
 export class AppStepperComponent implements OnInit {
   loanDetails: LoanDetails = { amount: null, years: null };

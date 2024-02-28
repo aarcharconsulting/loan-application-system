@@ -1,94 +1,87 @@
 <mat-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="loanDetailsFormGroup" label="Loan Details">
-    <form [formGroup]="loanDetailsFormGroup">
+    <div class="form">
+      <form [formGroup]="loanDetailsFormGroup">
 
-      <p>
-        <mat-form-field>
-          <mat-label>Amount</mat-label>
-          <input type="number" id="amount" matInput placeholder="Amount" formControlName="amountCtrl" required>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Loan Duration</mat-label>
-          <select matNativeControl required formControlName="yearCtrl">
-            <option *ngFor="let year of years"  [value]="year">{{ year }}</option>
-          </select>
-        </mat-form-field>
-      </p>
+        <p>
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input type="number" id="amount" matInput placeholder="Amount" formControlName="amountCtrl" required>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <mat-label>Loan Duration</mat-label>
+            <select matNativeControl required formControlName="yearCtrl">
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+          </mat-form-field>
+        </p>
 
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </div>
   </mat-step>
-  <!-- <mat-step [stepControl]="personalDetailsFormGroup" label="Personal Details">
-    <form [formGroup]="personalDetailsFormGroup">
-      <p>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="First name" formControlName="firstNameCtrl" required>
-        </mat-form-field>
-      </p>
-      <p> <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name" formControlName="lastNameCtrl" required>
-        </mat-form-field></p>
+
+  <mat-step [stepControl]="personalDetailsFormGroup" label="Personal Details">
+    <div class="form">
+      <personal-details [formGroup]="personalDetailsFormGroup"
+        (formGroupChange)="onPersonalDetailsFormChange($event)"></personal-details>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
-    </form>
-  </mat-step> -->
-  <mat-step [stepControl]="personalDetailsFormGroup" label="Personal Details">
-    <personal-details [formGroup]="personalDetailsFormGroup" (formGroupChange)="onPersonalDetailsFormChange($event)"></personal-details>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
   <mat-step [stepControl]="addressFormGroup" label="Your  address">
-    <form [formGroup]="addressFormGroup">
+    <div class="form">
+      <form [formGroup]="addressFormGroup">
 
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="addressCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-      </mat-form-field>
-      <p>
         <mat-form-field>
-          <mat-label>Years at this address</mat-label>
-          <input type="number" id="NoOfYears" matInput placeholder="Years at this address" formControlName="noOfYearsCtrl" required>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="addressCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
         </mat-form-field>
-      </p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
+        <p>
+          <mat-form-field>
+            <mat-label>Years at this address</mat-label>
+            <input type="number" id="NoOfYears" matInput placeholder="Years at this address"
+              formControlName="noOfYearsCtrl" required>
+          </mat-form-field>
+        </p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </div>
   </mat-step>
   <mat-step [stepControl]="financesFormGroup" label="Your finances">
-    <form [formGroup]="financesFormGroup">
-   
-
-    <p>
-      <mat-form-field>
-        <mat-label>Employment Status</mat-label>
-        <select matNativeControl required formControlName="employmentStatus">
-          <option *ngFor="let employment of employmentList"  [value]="employment.value">{{ employment.text }}</option>
-        </select>
-      </mat-form-field>
-    </p>
-    <p>
-      <p>
-        <mat-form-field>
-          <mat-label>Annual income before tax</mat-label>
-          <input type="number" id="annualincome" matInput placeholder="Annual income" formControlName="annualIncomeCtrl" required>
-        </mat-form-field>
-      </p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="navigateToResults()">Get Quotes</button>
+    <div class="form">
+      <form [formGroup]="financesFormGroup">
+        <p>
+          <mat-form-field>
+            <mat-label>Employment Status</mat-label>
+            <select matNativeControl required formControlName="employmentStatus">
+              <option *ngFor="let employment of employmentList" [value]="employment.value">{{ employment.text }}
+              </option>
+            </select>
+          </mat-form-field>
+        </p>
+        <p>
+        <p>
+          <mat-form-field>
+            <mat-label>Annual income before tax</mat-label>
+            <input type="number" id="annualincome" matInput placeholder="Annual income"
+              formControlName="annualIncomeCtrl" required>
+          </mat-form-field>
+        </p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="navigateToResults()">Get Quotes</button>
+        </div>
+      </form>
     </div>
-  </form>
   </mat-step>
 </mat-stepper>

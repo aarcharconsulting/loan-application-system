@@ -18,12 +18,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogClose,
     MatButtonModule,
   ],
-  template: `<h2 mat-dialog-title>Help</h2>
-  <mat-dialog-content>{{ data.helpText }}</mat-dialog-content>
-  <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Close</button>
-  </mat-dialog-actions>`,
+  templateUrl: './help-dialog.component.html'
 })
 export class HelpDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log('data - ', this.data)
+  }
 }

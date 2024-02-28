@@ -14,7 +14,7 @@ export class AppResultsComponent implements OnInit {
   ngOnInit() {
     this.filterService.getFilterState().subscribe(filters => {
 
-      console.log('filter sub')
+      console.log('filter subscribed')
 
       this.filteredResults = this.filterService.applyFilters(this.results, filters);
     });
