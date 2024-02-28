@@ -1,0 +1,70 @@
+<form [formGroup]="formGroup">
+    
+    <div class="form-field-container">
+        <label for="title">Title:</label>
+        <div>
+          <mat-radio-group aria-label="Select title" formControlName="title">
+            <mat-radio-button *ngFor="let title of titles" [value]="title">{{ title }}</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="formGroup.get('title')?.invalid">
+              {{getErrorMessage('title')}}
+          </mat-error>
+          <a href="#" (click)="openHelp('title')">Help</a>
+        </div>
+      </div>
+<!-- 
+
+    <p>
+        <mat-radio-group aria-label="Select title" formControlName="title">
+            <mat-label>Title:</mat-label>
+            <mat-radio-button *ngFor="let title of titles" [value]="title">{{ title }}</mat-radio-button>
+            <mat-error *ngIf="formGroup.get('title')?.invalid">
+                {{getErrorMessage('title')}}
+            </mat-error>
+        </mat-radio-group>
+    </p> -->
+    <p>
+        <!-- First Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName">
+            <mat-error *ngIf="formGroup.get('firstName')?.invalid">
+                {{getErrorMessage('firstName')}}
+            </mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <!-- Last Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="formGroup.get('lastName')?.invalid">
+                {{getErrorMessage('lastName')}}
+            </mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <!-- Date of Birth -->
+        <mat-form-field appearance="outline">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="formGroup.get('dateOfBirth')?.invalid">
+                {{getErrorMessage('dateOfBirth')}}
+            </mat-error>
+        </mat-form-field>
+    </p>
+    <p>
+        <!-- Marital Status -->
+        <mat-form-field appearance="outline">
+            <mat-label>Marital Status</mat-label>
+            <mat-select formControlName="maritalStatus">
+                <mat-option *ngFor="let status of maritalStatuses" [value]="status">{{ status }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('maritalStatus')?.invalid">
+                {{getErrorMessage('maritalStatus')}}
+            </mat-error>
+        </mat-form-field>
+    </p>
+</form>

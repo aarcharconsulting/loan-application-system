@@ -1,0 +1,5 @@
+<h3>Filter Options</h3>
+<div *ngFor="let option of filterOptions">
+    <input type="checkbox" (change)="emitFilterChange(option.value)"> {{option.label}}
+  </div>
+  

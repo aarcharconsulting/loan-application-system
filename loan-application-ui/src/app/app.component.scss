@@ -1,0 +1,39 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  
+    .mat-form-field, .mat-radio-group {
+      width: 100%; // Ensure input fields take up the available space
+    }
+  
+    label {
+      flex-basis: 20%;
+      padding-right: 20px; // Add some spacing between label and field
+    }
+  
+    > div {
+      flex-basis: 75%;
+      display: flex;
+      flex-direction: column;
+  
+      .help-link {
+        margin-top: 5px;
+        cursor: pointer;
+        color: #0077ff; // Example color for the help link
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  // Styles for vertical alignment of radio buttons if needed
+  .mat-radio-button {
+    display: block;
+  }
+  

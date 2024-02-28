@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">Loan Application System</mat-toolbar>
+<div *ngIf="showSidenav">
+  <mat-sidenav-container style="height: 100vh;">
+    <mat-sidenav mode="side" opened>
+<app-sidebar-filter (filterChange)="onFilterChange($event)"></app-sidebar-filter>
+
+      <button mat-button [routerLink]="['/']">Edit Application</button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+<router-outlet *ngIf="!showSidenav"></router-outlet>
