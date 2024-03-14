@@ -12,5 +12,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 512,
   "function-timeout": 30,
-  "function-handler": "LoanSubmission::LoanSubmission.LoanSubmissionFunction::LoanSubmissionFunctionHandler"
+  "function-handler": "LoanSubmission::LoanSubmission.LoanSubmissionFunction::LoanCheckerFunctionHandler"
 }

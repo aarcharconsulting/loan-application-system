@@ -30,5 +30,13 @@ namespace LoanSubmission.Repository
             await collection.InsertOneAsync(loanApplication);
             return loanApplication.Id.ToString();
         }
+        public async Task<List<ApiResponse>> GetResponsesByRequestId(string requestId)
+        {
+            var collection = _database.GetCollection<ApiResponse>("responses");
+            var filter = Builders<ApiResponse>.Filter.Eq(r => r.RequestId, requestId);
+            var responses = await collection.Find(filter).ToListAsync();
+            return responses;
+        }
+
     }
 }

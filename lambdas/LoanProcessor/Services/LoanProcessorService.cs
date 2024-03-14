@@ -53,7 +53,7 @@ namespace LoanProcessor.Services
 
                         await _repository.SaveApiResponseAsync(apiResponse);
 
-                        await _sqsService.SendMessageAsync(apiResponse);
+                       // await _sqsService.SendMessageAsync(apiResponse);
 
                         context.Logger.LogInformation($"ProcessLoanRequestAsync - save success, send message to response queue succcess");
 

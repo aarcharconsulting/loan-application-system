@@ -8,5 +8,7 @@ namespace LoanSubmission.Interfaces
     {
         Task<List<ProviderDetails>> GetProviders();
         Task<string> SaveLoanRequest(LoanApplication loanApplication);
+
+        Task<List<ApiResponse>> GetResponsesByRequestId(string requestId);
     }
 }

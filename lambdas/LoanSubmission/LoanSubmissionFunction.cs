@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using LoanSubmission.Interfaces;
 using LoanSubmission.Models;
 using Amazon.SQS.Model;
+using MongoDB.Bson.IO;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -108,8 +109,7 @@ namespace LoanSubmission
             {
                 context.Logger.LogInformation($"Received input: {JsonSerializer.Serialize(request)}");
 
-                var _sqsService = _sqsServiceFactory.GetSqsService("ResponseQueue");
-                if (!request.QueryStringParameters.TryGetValue("guid", out var guid))
+                if (!request.QueryStringParameters.TryGetValue("guid", out var requestId))
                 {
                     var message = "Missing or invalid 'guid' query parameter.";
                     context.Logger.LogError(message + " Request: " + JsonSerializer.Serialize(request));
@@ -124,27 +124,19 @@ namespace LoanSubmission
 
                 context.Logger.LogInformation($"trying to fetch messages");
 
-                var response = await _sqsService.ReceiveMessageAsync();
+                var response = await _repository.GetResponsesByRequestId(requestId);
 
-                context.Logger.LogInformation($"Total messages present - {response?.Messages?.Count ?? 0}");
-
-                foreach (var message in response.Messages)
+                if (response != null && response.Any())
                 {
-                    ApiResponse? loanResponse = TryParseApiResponse(message, context);
-                    if (loanResponse != null && loanResponse.RequestId == guid)
+                    context.Logger.LogInformation($"Total messages present - {response?.Count ?? 0}");
+                    
+                    return new APIGatewayProxyResponse
                     {
-                        context.Logger.LogInformation($"Loan response found with GUID: {guid}. Message: {message.Body}");
-                        await _sqsService.DeleteMessageAsync(message.ReceiptHandle);
-
-                        return new APIGatewayProxyResponse
-                        {
-                            StatusCode = 200,
-                            Body = message.Body
-                        };
-                    }
+                        StatusCode = 200,
+                        Body = JsonSerializer.Serialize(response)
+                    };
                 }
-
-                context.Logger.LogWarning("No message present for GUID: " + guid + ". Returning 204.");
+                context.Logger.LogWarning("No message present for GUID: " + requestId + ". Returning 204.");
                 return new APIGatewayProxyResponse
                 {
                     StatusCode = 204
@@ -154,7 +146,6 @@ namespace LoanSubmission
             {
                 context.Logger.LogError($"Error processing input: {ex.Message}. inner exception - {ex.InnerException?.Message}");
 
-                // Consider creating a detailed error response for the caller, depending on security considerations.
                 return new APIGatewayProxyResponse
                 {
                     StatusCode = 500,
@@ -175,7 +166,6 @@ namespace LoanSubmission
                 return null;
             }
         }
-
         
     }
 }
