@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  LoanSubmissionFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      Timeout: 15
+      Handler: LoanSubmission::LoanSubmission.LoanSubmissionFunction::LoanSubmissionFunctionHandler 
+      Runtime: dotnet8
+      CodeUri: ./bin/debug/net6.0/
+      Events:
+        RequestLoan:
+          Type: Api 
+          Properties:
+            Path: /api/v1/requestloan
+            Method: post
+  LoanCheckerFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      Timeout: 15
+      Handler: LoanSubmission::LoanSubmission.LoanSubmissionFunction::LoanCheckerFunctionHandler
+      Runtime: dotnet8
+      CodeUri: ./bin/debug/net6.0/
+      Events:
+        LoanResults:
+          Type: Api
+          Properties:
+            Path: /api/v1/loanresults
+            Method: get
