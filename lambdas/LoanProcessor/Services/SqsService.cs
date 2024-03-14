@@ -39,5 +39,15 @@ namespace LoanProcessor.Services
                 await _sqsClient.SendMessageAsync(sendMessageRequest);
             }
         }
+
+
+        public async Task DeleteMessageAsync(string receiptHandle)
+        {
+            await _sqsClient.DeleteMessageAsync(new DeleteMessageRequest()
+            {
+                QueueUrl = _queueUrl,
+                ReceiptHandle = receiptHandle
+            });
+        }
     }
 }
